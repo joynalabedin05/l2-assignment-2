@@ -5,23 +5,23 @@ export type User = {
   username: string;
   password: string;
   fullName: {
-    firstName: string,
-    lastName: string,
+    firstName: string;
+    lastName: string;
   };
   age: number;
   email: string;
   isActive: boolean;
-  hobbies: ["shopping", "gardening"];
+  hobbies: ['string', 'string'];
   address: {
-    street: string,
-    city: string,
-    country: string,
+    street: string;
+    city: string;
+    country: string;
   };
  orders: [
   {
-    productName: string,
-    price: number,
-    quantity: number,
+    productName: string;
+    price: number;
+    quantity: number;
   },
  ];
   
