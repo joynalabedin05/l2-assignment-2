@@ -11,7 +11,7 @@ export type User = {
   age: number;
   email: string;
   isActive: boolean;
-  hobbies: ["string", "string"];
+  hobbies: ["shopping", "gardening"];
   address: {
     street: string,
     city: string,
