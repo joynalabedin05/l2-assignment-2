@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { UserServices } from "./user.service";
-import Joi from 'joi';
+import Joi, { number } from 'joi';
 
 const createUser = async (req: Request, res: Response) => {
     try {
@@ -74,12 +74,55 @@ const createUser = async (req: Request, res: Response) => {
         data: result,
       });
     } catch (err) {
-      console.log(err);
+      res.status(500).json({
+        success: false,
+        message: 'User not found',
+        error: err,
+      });
+    }
+  };
+
+  const getSingleUser = async (req: Request, res: Response) => {
+    try {
+      const { userId } = req.params;
+      console.log(req.params.userId);
+      const result = await UserServices.getSingleUserFromDB(userId);
+      res.status(200).json({
+        success: true,
+        message: 'single student are retrieved successfully',
+        data: result,
+      });
+    } catch (err) {
+      res.status(500).json({
+        success: false,
+        message: 'User not found',
+        error: err,
+      });
+    }
+  };
+  const deleteUser = async (req: Request, res: Response) => {
+    try {
+      const { userId } = req.params;
+      // console.log(req.params.userId);
+      const result = await UserServices.deleteUserFromDB(userId);
+      res.status(200).json({
+        success: true,
+        message: ' delete user successfully',
+        data: result,
+      });
+    } catch (err) {
+      res.status(500).json({
+        success: false,
+        message: 'User not found',
+        error: err,
+      });
     }
   };
 
   export const UserController = {
     createUser,
     getAllUsers,
+    getSingleUser,
+    deleteUser,
     
   }

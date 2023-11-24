@@ -17,10 +17,15 @@ const createUserIntoDB = async (user: User) => {
     const result = await UserModel.findOne({ userId });
     return result;
   };
+  const deleteUserFromDB = async (userId: number) => {
+    const result = await UserModel.updateOne({ userId}, {isDeleted: true});
+    return result;
+  };
 
   export const UserServices = {
     createUserIntoDB,
     getAllUserFromDB,
     getSingleUserFromDB,
+    deleteUserFromDB,
    
   };

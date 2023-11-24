@@ -4,6 +4,7 @@ import { UserController } from './user.controler';
 const router = express.Router();
 router.post('/create-user', UserController.createUser);
 router.get('/', UserController.getAllUsers);
-// router.get('/:studentId', StudentController.getSingleStudent);
+router.get('/:userId', UserController.getSingleUser);
+router.delete('/:userId', UserController.deleteUser);
 
 export const UserRoutes = router;

@@ -24,5 +24,5 @@ export type User = {
     quantity: number;
   },
  ];
-  
+ isDeleted: boolean;
 };
