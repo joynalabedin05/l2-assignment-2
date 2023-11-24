@@ -17,7 +17,7 @@ const createUser = async (req: Request, res: Response) => {
       // })
 
       const userJoiSchema = Joi.object({
-        userId: Joi.number(),
+        userId: Joi.number().required(),
         username: Joi.string(),
         password: Joi.string(),
         fullName: Joi.object({
@@ -42,13 +42,15 @@ const createUser = async (req: Request, res: Response) => {
         ),
       });
   
-      const { user: userData } = req.body;
+      const {data: userData } = req.body;
   
       const {error, value}=userJoiSchema.validate(userData);
-      console.log(error, value);
+      console.log(error, value)
+      console.log(userData);
+      console.log(req.body);
   
       const result = await UserServices.createUserIntoDB(userData);
-    //   console.log(result);
+      console.log(result);
       res.status(200).json({
         success: true,
         message: 'User created successfully!',

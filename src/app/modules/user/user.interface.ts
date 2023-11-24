@@ -1,4 +1,4 @@
-
+import {} from 'mongoose';
 
 export type User = {
   userId: number;

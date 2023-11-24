@@ -4,11 +4,12 @@ import { User } from './user/user.interface';
 const userSchema = new Schema<User>({
     userId: {
         type: Number,
-       
+       required: true,
+       unique: true,
       },
       username: {
         type: String,
-       
+        unique: true,
       },
       password: {
         type: String,
@@ -30,6 +31,7 @@ const userSchema = new Schema<User>({
       },
       email: {
         type: String,
+        unique: true,
         
       },
       isActive: {
