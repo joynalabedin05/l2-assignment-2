@@ -33,8 +33,6 @@ const userSchema = new Schema<User>({
       },
       email: {
         type: String,
-        unique: true,
-        
       },
       isActive: {
         type: Boolean,
@@ -73,13 +71,17 @@ const userSchema = new Schema<User>({
           },
         },
       ],
-      isDeleted: Boolean,
+      isDeleted: {
+        type: Boolean,
+        default: false,
+      },
 });
 
 userSchema.pre('save', async function(next){
   // console.log(this);
   // eslint-disable-next-line @typescript-eslint/no-this-alias
   const user = this;
+  
   user.password = await bcrypt.hash(user.password, Number(config.bcrypt_salt_rounds));
   next();
 });
@@ -89,5 +91,28 @@ userSchema.post('save', function(doc, next){
   next();
 });
 
+userSchema.pre('find', function( next){
+  this.find({isDeleted: {$ne: true}});
+  next();
+});
+userSchema.pre('findOne', function( next){
+  this.find({isDeleted: {$ne: true}});
+  next();
+});
+
+userSchema.pre('aggregate', function( next){
+  this.pipeline().unshift({$match: {isDeleted: {$ne: true}}});
+  next();
+});
+
+userSchema.methods.toJSON = function () {
+  // eslint-disable-next-line @typescript-eslint/no-this-alias
+  const user = this;
+  const userObject = user.toObject();
+
+  delete userObject.password;
+
+  return userObject;
+}
 
 export const UserModel = model<User>('User', userSchema);

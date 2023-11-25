@@ -12,6 +12,7 @@ app.use(cors());
 
 app.use('/api/users', UserRoutes);
 
+
 // console.log(process.cwd());
 
 export default app;

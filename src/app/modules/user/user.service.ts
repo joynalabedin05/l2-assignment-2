@@ -13,11 +13,19 @@ const createUserIntoDB = async (user: User) => {
     const result = await UserModel.find();
     return result;
   };
-  const getSingleUserFromDB = async (userId: number) => {
+  const getSingleUserFromDB = async (userId: string) => {
     const result = await UserModel.findOne({ userId });
     return result;
   };
-  const deleteUserFromDB = async (userId: number) => {
+  const updateSingleUserFromDB = async (userId: string) => {
+    const result = await UserModel.findOne({ userId });
+    return result;
+  };
+  const updateSingleOrderFromDB = async (userId: string) => {
+    const result = await UserModel.findOne({ userId });
+    return result;
+  };
+  const deleteUserFromDB = async (userId: string) => {
     const result = await UserModel.updateOne({ userId}, {isDeleted: true});
     return result;
   };
@@ -26,6 +34,8 @@ const createUserIntoDB = async (user: User) => {
     createUserIntoDB,
     getAllUserFromDB,
     getSingleUserFromDB,
+    updateSingleUserFromDB,
     deleteUserFromDB,
+    updateSingleOrderFromDB,
    
   };
