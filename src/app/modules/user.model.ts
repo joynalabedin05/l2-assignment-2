@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { User } from './user/user.interface';
+import { User, DataModel } from './user/user.interface';
 import bcrypt from "bcrypt";
 import config from '../config';
 
@@ -55,22 +55,6 @@ const userSchema = new Schema<User>({
           
         },
       },
-      orders: [
-        {
-          productName: {
-            type: String,
-           
-          },
-          price: {
-            type: Number,
-            
-          },
-          quantity: {
-            type: Number,
-           
-          },
-        },
-      ],
       isDeleted: {
         type: Boolean,
         default: false,
@@ -115,4 +99,11 @@ userSchema.methods.toJSON = function () {
   return userObject;
 }
 
-export const UserModel = model<User>('User', userSchema);
+
+//creating a custom static method
+userSchema.statics.isUserExists = async function (userId: string) {
+  const existingUser = await UserModel.findOne({ userId });
+  return existingUser;
+};
+
+export const UserModel = model<User,DataModel >('User', userSchema);

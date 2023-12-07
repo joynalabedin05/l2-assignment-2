@@ -1,3 +1,4 @@
+import { Model } from 'mongoose';
 import {} from 'mongoose';
 
 export type User = {
@@ -11,18 +12,18 @@ export type User = {
   age: number;
   email: string;
   isActive: boolean;
-  hobbies: ['string', 'string'];
+  hobbies:string[];
   address: {
     street: string;
     city: string;
     country: string;
   };
- orders: [
-  {
-    productName: string;
-    price: number;
-    quantity: number;
-  },
- ];
- isDeleted: boolean;
+  isDeleted: boolean; 
 };
+
+//for creating static
+
+export interface DataModel extends Model<User> {
+  // eslint-disable-next-line no-unused-vars
+  isUserExists(userId: number): Promise<User | null>;
+}
